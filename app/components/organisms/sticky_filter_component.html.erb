@@ -1,0 +1,46 @@
+<aside class="p-4 h-fit bg-white min-w-[280px] sticky top-3 rounded-sm border grid z-10">
+    <div class="font-semibold text-primary">
+        <%= icon('fa-solid', 'filter', class:"text-md")%>
+        Filter
+        <span class="font-normal text-sm text-secondary">
+            (shows <%= @count %> results)
+        </span>
+    </div>
+    <%= form_tag root_path,
+        method: :get,
+        class: "grid gap-3 overflow-hidden max-h-0 md:max-h-[400px] transition-max-height duration-200 ease-in-out" do
+    %>
+        <div class="grid space-y-1">
+            <%= label_tag "Brand", nil,
+                class: "font-semibold text-secondary"
+            %>
+            <%= text_field_tag :brand,
+                params[:brand],
+                placeholder: "Ex. Toyota",
+                class: "input-primary"
+            %>
+        </div>
+        <div class="grid space-y-1">
+            <%= label_tag "Type", nil, class: "font-semibold text-secondary" %>
+            <%= text_field_tag :car_type,
+                params[:car_type],
+                placeholder: "Ex. Camry",
+                class: "input-primary"
+            %>
+        </div>
+        <div class="grid space-y-1">
+            <%= label_tag "Year", nil,
+                class: "font-semibold text-secondary"
+            %>
+            <%= select_tag :year,
+                options_for_select((Time.now.year).downto(Time.now.year - 400).to_a , params[:year]),
+                include_blank: "All",
+                class: "input-primary"
+            %>
+        </div>
+        <%= btn_component label: "Search",
+            extra_css: "text-sm mt-1.5",
+            html_type: "submit"
+        %>
+    <% end %>
+</aside>
